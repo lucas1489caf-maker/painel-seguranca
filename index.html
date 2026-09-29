@@ -391,6 +391,112 @@
     .mbtns{ display:flex; justify-content:center; gap: 16px; }
     .mbtns button{ font-size: 22px; padding: 16px 30px; border-radius: 14px; }
 
+
+    /* ===== Regras de Ouro ===== */
+    .rules{ display:none; padding: clamp(18px, 2.4vh, 36px) clamp(20px, 3vw, 44px) clamp(16px, 2vh, 28px); }
+    .panel.show-rules #viewMain{ display:none; }
+    .panel.show-rules .rules{ display:flex; flex-direction:column; }
+    .rhead{ display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+    .rlogo{
+      font-weight:900; font-style: italic;
+      font-size: clamp(34px, 3.6vw, 64px);
+      color: var(--brand);
+      letter-spacing: .5px;
+      text-shadow: 0 2px 0 #FFD9C9;
+    }
+    .rdays{
+      font-weight:800; text-transform:uppercase;
+      font-size: clamp(14px, 1.3vw, 22px);
+      color: var(--safe);
+      background: var(--safe-soft);
+      border: 2px solid rgba(30,158,74,.25);
+      border-radius: 999px;
+      padding: .45em 1em;
+    }
+    .rdays b{ font-size: 1.35em; font-weight:900; margin-right:4px; }
+    .rstage{ position:relative; flex:1; display:grid; margin: clamp(14px, 2vh, 30px) 0; }
+    .rule{
+      grid-area: 1 / 1;
+      display:grid;
+      grid-template-columns: auto 1fr;
+      align-items:center;
+      gap: 0;
+      padding: clamp(10px, 1.4vw, 24px) 0;
+      opacity:0; transform: translateX(40px);
+      transition: opacity .6s ease, transform .6s ease;
+      pointer-events:none;
+    }
+    .rule.on{ opacity:1; transform:none; }
+
+    /* Selo no padrão do PDF: disco branco com sombra + anel laranja */
+    .rbadge{ position:relative; z-index:2; }
+    .rdisc{
+      width: clamp(220px, min(19vw, 34vh), 360px);
+      aspect-ratio:1;
+      border-radius:50%;
+      background: radial-gradient(circle at 40% 30%, #ffffff 0%, #ffffff 55%, #F1F1F1 100%);
+      box-shadow:
+        -14px 18px 30px rgba(0,0,0,.18),
+        -4px 6px 10px rgba(0,0,0,.10),
+        inset 0 0 0 1px rgba(0,0,0,.03);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .rring{
+      width: 80%;
+      aspect-ratio:1;
+      border-radius:50%;
+      border: clamp(6px, .6vw, 10px) solid var(--brand);
+      background:#fff;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      text-align:center;
+      gap: 2px;
+    }
+    .rn{
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      color: var(--brand);
+      font-size: clamp(72px, min(6.4vw, 11vh), 124px);
+      line-height: .9;
+    }
+    .rtitle{
+      font-weight: 700;
+      color: var(--brand);
+      text-transform: uppercase;
+      font-size: clamp(14px, min(1.25vw, 2.1vh), 23px);
+      line-height: 1.15;
+      letter-spacing: .3px;
+      padding: 0 8%;
+    }
+
+    /* Texto com as linhas finas laranja acima e abaixo, saindo do selo */
+    .rbody{
+      position:relative;
+      margin-left: calc(-1 * clamp(40px, 4vw, 70px));
+      padding: clamp(22px, 2.6vw, 44px) clamp(10px, 1.4vw, 24px) clamp(22px, 2.6vw, 44px) calc(clamp(40px, 4vw, 70px) + clamp(24px, 2.4vw, 44px));
+      border-top: 2px solid var(--brand);
+      border-bottom: 2px solid var(--brand);
+    }
+    .rtext{ margin:0; font-weight:600; color:#2a2a2e; font-size: clamp(20px, min(1.9vw, 3.2vh), 36px); line-height:1.36; }
+    .rtimer{ height:8px; border-radius:999px; background:#F0ECE9; overflow:hidden; }
+    .rtimer-fill{ height:100%; width:0; background: linear-gradient(90deg, var(--brand), #FF8A50); }
+    .rtabs{ list-style:none; margin: 12px 0 0; padding:0; display:grid; grid-template-columns: repeat(5, 1fr); gap:10px; }
+    .rtabs li{
+      font-weight:800; text-transform:uppercase; text-align:center;
+      font-size: clamp(11px, .95vw, 16px);
+      color: var(--muted); background:#F6F2EF; border-radius: 12px; padding: .6em .4em;
+      transition: background .3s, color .3s;
+    }
+    .rtabs li b{ color: var(--brand); margin-right:4px; }
+    .rtabs li.on{ background: var(--brand); color:#fff; }
+    .rtabs li.on b{ color:#FFE8A3; }
+    @media (max-width:760px){
+      .rule{ grid-template-columns: 1fr; text-align:center; }
+      .rbadge{ margin:0 auto 16px; }
+      .rdisc{ width: 200px; }
+      .rbody{ margin-left:0; padding: 18px 4px; }
+      .rtabs{ grid-template-columns: 1fr; }
+    }
+
     @media (max-width:760px){
       .body{ grid-template-columns: 1fr; }
       .mascot{ justify-self:center; width: 150px; }
@@ -425,6 +531,7 @@
         </div>
       </header>
 
+      <div id="viewMain">
       <div class="body">
         <div class="main">
           <p class="line">Estamos trabalhando há</p>
@@ -459,12 +566,57 @@
         <div class="greet-main" id="greetMain">Bom trabalho, equipe!</div>
         <div class="greet-sub" id="greetSub">A segurança começa por você.</div>
       </div>
+      </div><!-- /viewMain -->
+
+      <!-- ===== Regras de Ouro (alterna com o indicador) ===== -->
+      <section class="rules" id="viewRules" aria-live="polite">
+        <div class="rhead">
+          <div class="rlogo">Regras de Ouro</div>
+          <div class="rdays"><b id="rulesDays">0</b> dias sem acidentes com afastamento</div>
+        </div>
+        <div class="rstage">
+          <article class="rule" data-i="0">
+            <div class="rbadge">
+              <div class="rdisc"><div class="rring"><span class="rn">1</span><span class="rtitle">PROTEJA<br>AS PESSOAS</span></div></div>
+            </div>
+            <div class="rbody"><p class="rtext">Obrigatório estar devidamente capacitado e utilizar os EPI’s e EPC’s para realizar atividades que envolvam risco. Cuide de si mesmo e das pessoas à sua volta.</p></div>
+          </article>
+          <article class="rule" data-i="1">
+            <div class="rbadge">
+              <div class="rdisc"><div class="rring"><span class="rn">2</span><span class="rtitle">PRATIQUE<br>O CUIDADO</span></div></div>
+            </div>
+            <div class="rbody"><p class="rtext">Proibido adulterar, improvisar e burlar sistema de segurança de máquinas e equipamentos, bem como, operar máquinas e equipamentos sem estar apto ou habilitado e intervir quando estão em movimento. Obrigatório realizar procedimento de identificação e bloqueio de energia perigosa, avaliar risco, emitir, cumprir e encerrar a permissão de trabalho.</p></div>
+          </article>
+          <article class="rule" data-i="2">
+            <div class="rbadge">
+              <div class="rdisc"><div class="rring"><span class="rn">3</span><span class="rtitle">PRESERVE<br>O AMBIENTE</span></div></div>
+            </div>
+            <div class="rbody"><p class="rtext">Mantenha o ambiente de trabalho limpo e organizado, esteja sempre atento aos riscos, observe a sinalização do local e cumpra com disciplina os procedimentos de segurança.</p></div>
+          </article>
+          <article class="rule" data-i="3">
+            <div class="rbadge">
+              <div class="rdisc"><div class="rring"><span class="rn">4</span><span class="rtitle">TRANSITE COM<br>SEGURANÇA</span></div></div>
+            </div>
+            <div class="rbody"><p class="rtext">No trânsito, no local de trabalho ou nas dependências da Copacol respeite a legislação de trânsito e as sinalizações existentes, observe os limites de velocidade, faça uso do cinto de segurança, não dirija sob efeitos de álcool e drogas, não faça o uso de celular ao dirigir ou operar máquinas, utilize as faixas de pedestre e caminhe com segurança e atenção no pátio.</p></div>
+          </article>
+          <article class="rule" data-i="4">
+            <div class="rbadge">
+              <div class="rdisc"><div class="rring"><span class="rn">5</span><span class="rtitle">COMUNIQUE<br>IMEDIATAMENTE</span></div></div>
+            </div>
+            <div class="rbody"><p class="rtext">Sempre que perceber um comportamento e/ou condição que põe em risco a sua segurança ou dos demais, comunique imediatamente ao seu superior imediato, a CIPA e/ou SESMT. Informe todo e qualquer desvio, incidente e acidente.</p></div>
+          </article>
+        </div>
+        <div class="rtimer"><div class="rtimer-fill" id="rTimer"></div></div>
+        <ol class="rtabs" id="rTabs"><li data-i="0"><b>1</b> PROTEJA AS PESSOAS</li><li data-i="1"><b>2</b> PRATIQUE O CUIDADO</li><li data-i="2"><b>3</b> PRESERVE O AMBIENTE</li><li data-i="3"><b>4</b> TRANSITE COM SEGURANÇA</li><li data-i="4"><b>5</b> COMUNIQUE IMEDIATAMENTE</li></ol>
+      </section>
+
 
       <div class="tvbar" id="tvbar">
         <div class="controls">
           <button class="btn-primary" id="btnReset">Zerar (registrar acidente)</button>
           <button class="btn-secondary" id="btnSetStart">Ajustar data de início</button>
           <button class="btn-secondary" id="btnSetRecord">Ajustar recorde</button>
+          <button class="btn-secondary" id="btnRules">Regras de Ouro</button>
           <button class="btn-secondary" id="btnFull">Tela cheia</button>
           <button class="btn-secondary" id="btnClose">Fechar menu</button>
         </div>
@@ -785,13 +937,13 @@
     // ===== Relógio em tempo real + mensagem de bom trabalho =====
     const FRASES = [
       "A segurança começa por você.",
-      "Use sempre seus EPIs.",
+      "Use sempre EPIs.",
       "Na dúvida, pare e pergunte.",
       "Bloqueie e etiquete antes de intervir.",
-      "Trabalho seguro é trabalho bem feito.",
+      "Antes de agir, pare, avalie os riscos e trabalhe com segurança.",
       "Cuide de você e do colega ao lado.",
       "Organização e limpeza também são segurança.",
-      "Ninguém se machuca hoje!"
+      "Sua família espera você de volta. Cuide-se!"
     ];
     let _fraseIdx = 0;
 
@@ -825,6 +977,58 @@
     tickClock();
     setInterval(tickClock, 1000);
     setInterval(nextFrase, 15000); // troca a frase a cada 15s
+
+    // ===== Regras de Ouro: alterna automaticamente com o indicador =====
+    const TEMPO_INDICADOR = 120;  // segundos mostrando o contador de dias
+    const TEMPO_POR_REGRA = 15;   // segundos em cada regra (5 regras)
+
+    const panelEl = document.getElementById("panel");
+    const ruleEls = Array.from(document.querySelectorAll("#viewRules .rule"));
+    const tabEls  = Array.from(document.querySelectorAll("#rTabs li"));
+    const rTimer  = document.getElementById("rTimer");
+    let viewTimer = null, ruleIdx = 0;
+
+    function showRule(i){
+      ruleIdx = i;
+      ruleEls.forEach((el,k) => el.classList.toggle("on", k === i));
+      tabEls.forEach((el,k) => el.classList.toggle("on", k === i));
+      document.getElementById("rulesDays").textContent = document.getElementById("daysNow").textContent;
+      rTimer.style.transition = "none"; rTimer.style.width = "0%";
+      void rTimer.offsetWidth;
+      rTimer.style.transition = `width ${TEMPO_POR_REGRA}s linear`; rTimer.style.width = "100%";
+    }
+
+    function menuAberto(){ return tvbar.classList.contains("show") || !!mMode; }
+
+    function startMain(){
+      clearTimeout(viewTimer);
+      panelEl.classList.remove("show-rules");
+      viewTimer = setTimeout(() => {
+        if (menuAberto()) { startMain(); return; } // não troca de tela com o menu aberto
+        startRules(0);
+      }, TEMPO_INDICADOR * 1000);
+    }
+
+    function startRules(i){
+      clearTimeout(viewTimer);
+      if (!panelEl.classList.contains("show-rules")){
+        // mantém a mesma altura do painel para a tela não "pular"
+        document.getElementById("viewRules").style.minHeight = document.getElementById("viewMain").offsetHeight + "px";
+      }
+      panelEl.classList.add("show-rules");
+      showRule(i);
+      viewTimer = setTimeout(() => {
+        if (i + 1 < ruleEls.length) startRules(i + 1);
+        else startMain();
+      }, TEMPO_POR_REGRA * 1000);
+    }
+
+    document.getElementById("btnRules").addEventListener("click", () => {
+      if (panelEl.classList.contains("show-rules")) startMain();
+      else { hideMenu(); startRules(0); }
+    });
+
+    startMain();
   </script>
 
   <!-- Vídeo invisível para manter o sistema ativo (anti-suspensão corporativa) -->
