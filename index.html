@@ -449,14 +449,19 @@
       background:#fff;
       display:flex; flex-direction:column; align-items:center; justify-content:center;
       text-align:center;
-      gap: 2px;
+      gap: 4px;
     }
     .rn{
-      font-family: Georgia, "Times New Roman", serif;
+      font-family: "Times New Roman", Times, "Liberation Serif", serif; /* Georgia tem números "descendentes" (3, 4, 5) */
       font-weight: 700;
       color: var(--brand);
       font-size: clamp(72px, min(6.4vw, 11vh), 124px);
-      line-height: .9;
+      line-height: 1;
+      display:block;
+      /* força algarismos "alinhados": sem isso, o 3, 4 e 5 descem abaixo da linha em algumas fontes da TV */
+      font-variant-numeric: lining-nums;
+      font-feature-settings: "lnum" 1, "onum" 0;
+      margin-bottom: .08em;
     }
     .rtitle{
       font-weight: 700;
@@ -937,13 +942,13 @@
     // ===== Relógio em tempo real + mensagem de bom trabalho =====
     const FRASES = [
       "A segurança começa por você.",
-      "Use sempre EPIs.",
+      "Use sempre seus EPIs.",
       "Na dúvida, pare e pergunte.",
       "Bloqueie e etiquete antes de intervir.",
-      "Antes de agir, pare, avalie os riscos e trabalhe com segurança.",
+      "Trabalho seguro é trabalho bem feito.",
       "Cuide de você e do colega ao lado.",
       "Organização e limpeza também são segurança.",
-      "Sua família espera você de volta. Cuide-se!"
+      "Ninguém se machuca hoje!"
     ];
     let _fraseIdx = 0;
 
